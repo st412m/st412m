@@ -45,7 +45,7 @@ These tests verify navigation, UI state changes, and content rendering in a modu
 
 ### 📬 Contact Me
 
-- 💼 [LinkedIn]([https://linkedin.com/in/YOUR-LINK-HERE](https://www.linkedin.com/in/mikhail-staroverov/)) 
+- 💼 [LinkedIn](https://www.linkedin.com/in/mikhail-staroverov/)
 
 ---
 
