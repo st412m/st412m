@@ -1,16 +1,52 @@
-## Hi there 👋
+<h1 align="center">👋 Hi, I'm Mikhail</h1>
+<h3 align="center">QA Automation Engineer | Android UI Testing | Kotlin | Kaspresso </h3>
 
-<!--
-**st412m/st412m** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
+---
 
-Here are some ideas to get you started:
+### 🧪 About Me
 
-- 🔭 I’m currently working on ...
-- 🌱 I’m currently learning ...
-- 👯 I’m looking to collaborate on ...
-- 🤔 I’m looking for help with ...
-- 💬 Ask me about ...
-- 📫 How to reach me: ...
-- 😄 Pronouns: ...
-- ⚡ Fun fact: ...
--->
+- 🔍 I'm a **QA Automation Engineer** specializing in **Android UI testing**
+- 🤖 I use **Kaspresso** to test real-world Android apps
+- 📱 Focused on **clean test architecture**, **stable test flows**, and **scalable frameworks**
+- 🧰 Passionate about writing meaningful, fast, and maintainable UI tests
+
+---
+
+### 🚀 Featured Project: Now in Android (UI Test Automation)
+
+[📁 GitHub Repo → `nowinandroid`](https://github.com/st412m/nowinandroid)
+
+In this project, I'm building UI test coverage for a complex Jetpack Compose app using:
+
+- 📷 **Kaspresso**
+- 🧩 Page Object pattern for separation of concerns
+- ✅ Custom matchers for dynamic UI elements
+- 📂 Organized test structure:  
+  [`/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui`](https://github.com/st412m/nowinandroid/tree/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui)
+
+Example test files:
+- `ForYouScreenTest.kt`
+- `TopicScreenTest.kt`
+- `NavigationTest.kt`
+
+These tests verify navigation, UI state changes, and content rendering in a modular and scalable way.
+
+---
+
+### 🛠️ Tech & Tools I Use
+
+- **Languages**: Kotlin
+- **UI Automation**: Kaspresso, UI Automator, Jetpack Compose Testing
+- **Test Reporting**: Allure, Logcat analysis
+- **CI/CD**: GitHub Actions (in progress)
+- **Other Tools**: Git, Android Studio, Gradle
+
+---
+
+### 📬 Contact Me
+
+- 💼 [LinkedIn]([https://linkedin.com/in/YOUR-LINK-HERE](https://www.linkedin.com/in/mikhail-staroverov/)) 
+
+---
+
+🎯 *If a task can be automated, it should be automated; if automation is not possible, the task should be brought to a state suitable for automation and then automated.*
