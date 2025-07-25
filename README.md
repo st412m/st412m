@@ -43,6 +43,12 @@ These tests verify navigation, UI state changes, and content rendering in a modu
 
 ---
 
+### QA Automation tools
+
+See detailed description of QA automation tools used in [NowInAndroid](https://github.com/st412m/nowinandroid) here:  
+[QA Automation Tools](./README_QA.md)
+
+
 ### 📬 Contact Me
 
 - 💼 [LinkedIn](https://www.linkedin.com/in/mikhail-staroverov/)
