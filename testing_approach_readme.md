@@ -1,31 +1,29 @@
-# Кастомное решение для UI-тестирования Android
+# Custom Solution for Android UI Testing
 
-## 📖 Обзор
+## 📖 Overview
 
-Данный проект представляет авторскую реализацию подхода к UI-тестированию Android-приложений, построенную на основе библиотек **Kaspresso** и **Kakao**. Разработанная архитектура реализует паттерн **Domain-Specific Language (DSL)** для создания читаемых, поддерживаемых и эффективных автотестов.
+This project presents a custom solution for UI testing of Android applications, built on top of the **Kaspresso** and **Kakao** libraries. The architecture implements the **Domain-Specific Language (DSL)** pattern, enabling readable, maintainable, and efficient automated tests for modern Android applications, including support for **Jetpack Compose**.
 
-## 🦶 Именованные шаги
+## 🦶 Named Steps
 
-### Основные компоненты
+### Core Components
 
-| Компонент | Назначение | Ссылка |
-|-----------|------------|--------|
-| **ActionSteps** | Выполнение действий в UI | [ActionSteps.kt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/ActionSteps.kt) |
-| **CheckSteps** | Проверки состояния UI | [CheckSteps.kt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/CheckSteps.kt) |
-| **StepsExecutor** | Центральный исполнитель команд | [StepsExecutor.kt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/StepsExecutor.kt) |
+| Component | Purpose | Link |
+|-----------|---------|------|
+| **ActionSteps** | Performing UI actions (e.g., clicks, swipes) | [ActionSteps.kt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/ActionSteps.kt) |
+| **CheckSteps** | Verifying UI state (e.g., visibility, text) | [CheckSteps.kt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/CheckSteps.kt) |
+| **StepsExecutor** | Central command executor with low-level logic | [StepsExecutor.kt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/StepsExecutor.kt) |
 
-## 🚀 Ключевые особенности
+## 🚀 Key Features
 
-### 1. DSL-подход для UI-тестирования
+### 1. DSL Approach for UI Testing
 
-#### ✅ Преимущества
+#### ✅ Benefits
+- **Readability**: Tests are written in a style close to natural language, making them accessible to QA engineers, managers, and other team members.
+- **Declarative Syntax**: Code describes *what* to do, not *how*, simplifying test creation.
+- **Accessibility**: Understandable even for those without deep technical expertise.
 
-- **Читаемость кода**: Тесты написаны в стиле, близком к естественному языку
-- **Декларативность**: Код описывает *что* делать, а не *как*
-- **Доступность**: Понятен даже людям без глубоких технических знаний
-
-#### 📝 Пример использования
-
+#### 📝 Example Usage
 ```kotlin
 actions {
     uiClick("Login")
@@ -34,70 +32,64 @@ actions {
 }
 ```
 
-*[Полный пример теста](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tests/TopAppBarTests.kt)*
+*[Full test example](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tests/TopAppBarTests.kt)*
 
-### 2. Унификация и централизация логики
+### 2. Unified and Centralized Logic
+- **Single Point of Implementation**: All low-level operations are encapsulated in [StepsExecutor](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/StepsExecutor.kt).
+- **Extensibility**: Supports [NodeActions Extensions](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/extensions/NodeActionExt.kt).
+- **Isolation**: Tests are independent of low-level UI interaction details.
 
-- **Единая точка реализации**: Все низкоуровневые операции инкапсулированы в [StepsExecutor](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/StepsExecutor.kt)
-- **Расширяемость**: Поддержка [NodeActions Extensions](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/extensions/NodeActionExt.kt)
-- **Изоляция**: Тесты не зависят от деталей реализации UI-взаимодействий
+### 3. Integration with Allure Reports
+- **Automatic Logging**: Each step is added to the report with a detailed description.
+- **Visualization**: Example reports are available [here](https://github.com/st412m/st412m/blob/main/scr/allure_report_example.png).
+- **Flexible Naming**: Supports custom step names for precise reporting.
 
-### 3. Интеграция с Allure Reports
+## 🎯 Jetpack Compose Support
 
-- **Автоматическое логирование**: Каждый шаг добавляется в отчет с подробным описанием
-- **Визуализация**: Примеры отчетов доступны [здесь](https://github.com/st412m/st412m/blob/main/scr/allure_report_example.png)
-- **Гибкость именования**: Поддержка кастомных названий шагов
+### List Extensions
 
-## 🎯 Работа с Jetpack Compose
+Specialized extensions for working with `LazyColumn` and standard lists in Jetpack Compose:
 
-### Расширения для списков
+| Extension | Purpose |
+|-----------|---------|
+| [KLazyListNodeExt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/extensions/KLazyListNodeExt.kt) | Handling lazy lists |
 
-Реализованы специализированные расширения для работы с `LazyColumn` и обычными списками в Jetpack Compose:
+#### 🔧 Key Capabilities
+- **Indexed Access**: `list.invokeAtIndex<TopicSelectionsListItems>(index = 2) { performClick() }`
+- **Predicate-Based Search**: Dynamic element search based on custom conditions.
+- **Type Safety**: Use of generics with IDE support.
+- **Allure Integration**: Automatic element naming in reports.
 
-| Расширение | Назначение |
-|------------|------------|
-| [KLazyListNodeExt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/extensions/KLazyListNodeExt.kt) | Работа с ленивыми списками |
-
-#### 🔧 Основные возможности
-
-- **Индексированный доступ**: `list.invokeAtIndex<TopicSelectionsListItems>(index = 2) { performClick() }`
-- **Поиск по предикату**: Динамический поиск элементов по условиям
-- **Типобезопасность**: Использование generics с поддержкой IDE
-- **Allure-интеграция**: Автоматическое именование элементов в отчетах
-
-#### 📊 Пример отчета
-
+#### 📊 Report Example
 ![Topic Selection List Report](https://github.com/st412m/st412m/blob/main/scr/allure_report_topic_selection_list.png)
 
-*[Пример использования](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tests/TopicSelectionListTests.kt)*
+*[Usage example](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tests/TopicSelectionListTests.kt)*
 
-## 📸 Система скриншотов
+## 📸 Screenshot System
 
-### Кастомные интерсепторы
+### Custom Interceptors
 
-В проекте реализованы два специализированных интерсептора для автоматического создания скриншотов:
+The project includes two specialized interceptors for automatic screenshot generation:
 
-| Интерсептор | Назначение | Ссылка |
-|-------------|------------|--------|
-| **FailOnlyScreenshotStepInterceptor** | Скриншоты только при ошибках | [FailOnlyScreenshotStepInterceptor.kt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/interceptors/FailOnlyScreenshotStepInterceptor.kt) |
-| **SuccessFinaleScreenshotTestInterceptor** | Финальные скриншоты тестов | [SuccessFinaleScreenshotTestInterceptor.kt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/interceptors/SuccessFinaleScreenshotTestInterceptor.kt) |
+| Interceptor | Purpose | Link |
+|-------------|---------|------|
+| **FailOnlyScreenshotStepInterceptor** | Screenshots on step failures | [FailOnlyScreenshotStepInterceptor.kt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/interceptors/FailOnlyScreenshotStepInterceptor.kt) |
+| **SuccessFinaleScreenshotTestInterceptor** | Final test screenshots | [SuccessFinaleScreenshotTestInterceptor.kt](https://github.com/st412m/nowinandroid/blob/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui/tools/interceptors/SuccessFinaleScreenshotTestInterceptor.kt) |
 
-#### 🎯 Особенности работы
+#### 🎯 Features
+- **Resource Efficiency**: Screenshots are created only when needed.
+- **Automatic Naming**: Clear tagging scheme for each screenshot type.
+- **Allure Integration**: Automatic attachment to reports.
 
-- **Экономия ресурсов**: Скриншоты создаются только при необходимости
-- **Автоматическое именование**: Четкая схема тегов для каждого типа скриншота
-- **Интеграция с Allure**: Автоматическое прикрепление к отчетам
+#### 🏷️ Naming Scheme
+- **On Failures**: `<testClassName>_step_<ordinal>_failure_<errorType>`
+- **Final Screenshots**: `<testName>_success` or `<testName>_failed`
 
-#### 🏷️ Схема именования
+## ⚙️ Gradle Integration
 
-- **При ошибках**: `<testClassName>_step_<ordinal>_failure_<errorType>`
-- **Финальные**: `<testName>_success` или `<testName>_failed`
+### Automation of Allure Results Management
 
-## ⚙️ Gradle-интеграция
-
-### Автоматизация управления Allure-результатами
-
-В `build.gradle` реализованы специальные задачи для управления результатами тестирования:
+Custom Gradle tasks in `build.gradle` manage test results:
 
 ```kotlin
 tasks.register<Delete>("deleteLocalAllureResults") {
@@ -136,55 +128,49 @@ tasks.withType<DeviceProviderInstrumentTestTask>().configureEach {
 }
 ```
 
-#### 🔄 Жизненный цикл задач
+#### 🔄 Task Lifecycle
+1. **Device Cleanup** → 2. **Test Execution** → 3. **Results Retrieval**
 
-1. **Очистка устройства** → 2. **Запуск тестов** → 3. **Копирование результатов**
+### 📋 Available Tasks
 
-### 📋 Доступные задачи
+| Task | Description |
+|------|-------------|
+| `deleteLocalAllureResults` | Deletes local test results |
+| `pullAllureResults` | Copies results from device |
+| `clearDeviceAllureResults` | Clears results on device |
 
-| Задача | Описание |
-|--------|----------|
-| `deleteLocalAllureResults` | Удаление локальных результатов |
-| `pullAllureResults` | Копирование результатов с устройства |
-| `clearDeviceAllureResults` | Очистка результатов на устройстве |
+## 💡 Benefits of the Approach
 
-## 💡 Преимущества подхода
+### 📈 For Developers
+- **Low Entry Barrier**: Simple and intuitive DSL.
+- **Fast Development**: Pre-built components and methods.
+- **Easy Debugging**: Detailed Allure reports with screenshots.
 
-### 📈 Для разработчиков
+### 🔧 For Maintenance
+- **Modularity**: Clear separation of responsibilities.
+- **Extensibility**: Easy addition of new actions.
+- **Centralization**: Single point for logic modifications.
 
-- **Снижение порога входа**: Простой и понятный DSL
-- **Быстрая разработка**: Готовые компоненты и методы
-- **Легкая отладка**: Детальные Allure-отчеты с скриншотами
+### 🚀 For CI/CD
+- **Automation**: Full integration with pipelines.
+- **Resilience**: Error handling and recovery mechanisms.
+- **Monitoring**: Comprehensive reports for analysis.
 
-### 🔧 Для поддержки
+## 🎯 Applicability
 
-- **Модульность**: Четкое разделение ответственности
-- **Расширяемость**: Простое добавление новых действий
-- **Централизация**: Единая точка модификации логики
+This solution is particularly effective for:
+- **Large Projects** with extensive UI testing needs.
+- **Development Teams** with varying expertise levels.
+- **CI/CD Pipelines** requiring detailed reporting.
+- **Jetpack Compose Projects** with dynamic content.
 
-### 🚀 Для CI/CD
+## 📚 Conclusion
 
-- **Автоматизация**: Полная интеграция с пайплайнами
-- **Устойчивость**: Обработка ошибок и recovery
-- **Мониторинг**: Детальные отчеты для анализа
+This implementation provides:
+- ✅ **Readable and Maintainable** code.
+- ✅ **Unified and Centralized** logic.
+- ✅ **Integration with Modern Reporting Tools**.
+- ✅ **Flexible and Extensible** architecture.
+- ✅ **Efficient Team Collaboration**.
 
-## 🎯 Применение
-
-Данное решение особенно эффективно для:
-
-- **Крупных проектов** с большим количеством UI-тестов
-- **Команд разработки** с разным уровнем экспертизы
-- **CI/CD-конвейеров** с требованиями к детальной отчетности
-- **Проектов на Jetpack Compose** с динамическим контентом
-
-## 📚 Заключение
-
-Представленная реализация подхода к UI-тестированию обеспечивает:
-
-- ✅ **Читаемость и поддерживаемость** кода
-- ✅ **Унификацию и централизацию** логики
-- ✅ **Интеграцию с современными инструментами** отчетности
-- ✅ **Гибкость и расширяемость** архитектуры
-- ✅ **Эффективную командную работу**
-
-Решение создано с учетом лучших практик Android-разработки и может быть адаптировано под специфические требования любого проекта.
+Built with Android development best practices, this solution can be adapted to meet the specific needs of any project.
