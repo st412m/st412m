@@ -18,6 +18,8 @@
 
 In this project, I'm building UI test coverage for a complex Jetpack Compose app using:
 
+A more detailed description of the project approach 👉[is located here](https://github.com/st412m/st412m/blob/main/testing_approach_readme.md)👈
+
 - 📷 **Kaspresso**
 - 🧩 Page Object pattern for separation of concerns
 - ✅ Custom matchers for dynamic UI elements
