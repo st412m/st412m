@@ -85,6 +85,15 @@ Detailed explanation of tools used in the project:
 
 ---
 
+## Other Projects
+
+### [keenetic-mcp](https://github.com/st412m/keenetic-mcp)
+MCP (Model Context Protocol) server for Keenetic routers. Runs directly on the router via Entware, allowing Claude AI to monitor and manage home network infrastructure.
+
+- 22 tools: system monitoring, WiFi analysis, client management, VPN status, Mesh topology
+- Pure Python, no external dependencies
+- Tested on Keenetic Giga KN-1010, KeeneticOS 5.0.8
+
 ### Contact
 
 - [LinkedIn – Mikhail Staroverov](https://www.linkedin.com/in/mikhail-staroverov/)
