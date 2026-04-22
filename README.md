@@ -1,105 +1,60 @@
 <h1 align="center">Hi, I'm Mikhail</h1>
-<h3 align="center">QA Automation Engineer | Android UI Testing | Kotlin | Kaspresso</h3>
+<h3 align="center">AI & Automation Engineer</h3>
 
 ---
 
 ### About Me
 
-- I am a **QA Automation Engineer** specializing in **Android UI testing**  
-- I use **Kaspresso** to test real-world Android applications  
-- Focused on **clean test architecture**, **stable test flows**, and **scalable frameworks**  
-- Dedicated to writing meaningful, fast, and maintainable UI tests  
+I design and build intelligent systems, AI agents, and bots that automate processes and accelerate product development.
+
+I work at the intersection of architecture, integrations, and LLMs — connecting services, APIs, and data into reliable, scalable workflows. For me, automation is not just scripts, it's a well-thought-out system with clear logic and measurable outcomes.
+
+**Background:** 10 years of sysadmin experience + Android test automation (Kotlin, Kaspresso) — which gave me infrastructure thinking and a systems mindset.
+
+**Currently building:** open source MCP servers that give Claude direct access to home and network infrastructure — treating AI not as a chatbot, but as an agent with real system access.
 
 ---
 
-## Project Objective and Strategy
+## Open Source Projects
 
-### The core purpose of this project is to make the Kaspresso framework approachable and quick to learn for automation engineers and full-stack QA.
+### [ha-filesystem-mcp](https://github.com/st412m/ha-filesystem-mcp)
+Home Assistant addon that exposes a local directory to Claude via MCP (Model Context Protocol). Built to implement [Andrej Karpathy's LLM wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — a personal knowledge base in plain markdown files, maintained by an LLM agent.
 
-This project is intentionally built using only **two technologies**:  
-**Kotlin** and **Kaspresso**.
-
----
-
-#### Key Principles of the Framework:
-
-**1. Human-readable test logic**  
-Tests are written using **named steps** and **named elements**, reducing verbosity and making test cases easy to read and reason about.
-
-**2. Minimal boilerplate**  
-A custom **DSL syntax** helps avoid repetitive interactions with dynamic UI components and lists.
-
-**3. Clean and relevant reporting**  
-**Interceptors** suppress redundant screenshots to ensure test reports stay focused and informative.
-
-**4. Automated report export**  
-Test results are automatically **generated and exported** from the device (or emulator) to the host machine or any configured location.
-
----
-
-> The result: a scalable and modular UI testing framework that emphasizes **clarity**, **maintainability**, and **ease of adoption**.
-
-Technical implementation details follow below.
-
----
-
-### Featured Project: Now in Android (UI Test Automation)
-
-[GitHub Repository: `nowinandroid`](https://github.com/st412m/nowinandroid)
-
-This project provides UI test coverage for a production-level Jetpack Compose application.
-
-Approach overview: [Testing Strategy](https://github.com/st412m/st412m/blob/main/testing_approach_readme.md)
-
-Key components:
-
-- **Kaspresso** UI testing framework  
-- **Page Object** pattern for separation of concerns  
-- Custom **matchers** for dynamic UI elements  
-- Well-structured test suite:  
-  [`/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui`](https://github.com/st412m/nowinandroid/tree/main/app/src/androidTest/kotlin/com/google/samples/apps/nowinandroid/ui)
-
-Example test classes:
-- `ForYouScreenTest.kt`  
-- `TopicScreenTest.kt`  
-- `NavigationTest.kt`  
-
-These tests validate navigation flows, UI state changes, and content rendering using modular and scalable design patterns.
-
----
-
-### Technologies and Tools
-
-- **Languages**: Kotlin  
-- **UI Test Automation**: Kaspresso, UI Automator, Jetpack Compose Testing  
-- **Reporting**: Allure, Logcat analysis  
-- **CI/CD**: GitHub Actions (in progress)  
-- **Environment**: Android Studio, Gradle, Git  
-
----
-
-### QA Automation Tools
-
-Detailed explanation of tools used in the project:  
-[QA Automation Tools Overview](QA_tools.md)
-
----
-
-## Other Projects
+- Exposes any local directory (e.g. USB drive) via MCP over HTTPS
+- Token-based auth compatible with claude.ai custom connectors
+- Auto-creates vault structure and `CLAUDE.md` on first run
+- Works together with HA-MCP and Keenetic-MCP for full smart home context
+- Tested on amd64 · [Community thread](https://community.home-assistant.io/t/filesystem-mcp-server-expose-your-local-directory-to-claude-karpathy-llm-wiki-for-home-assistant/)
 
 ### [keenetic-mcp](https://github.com/st412m/keenetic-mcp)
-MCP (Model Context Protocol) server for Keenetic routers. Runs directly on the router via Entware, allowing Claude AI to monitor and manage home network infrastructure.
+MCP server for Keenetic routers. Runs directly on the router via Entware, allowing Claude to monitor and manage home network infrastructure.
 
 - 22 tools: system monitoring, WiFi analysis, client management, VPN status, Mesh topology
 - Pure Python, no external dependencies
 - Tested on Keenetic Giga KN-1010, KeeneticOS 5.0.8
 
-### Contact
-
-- [LinkedIn – Mikhail Staroverov](https://www.linkedin.com/in/mikhail-staroverov/)
+### [nowinandroid](https://github.com/st412m/nowinandroid)
+Custom UI test automation framework built on top of Google's Now in Android app. DSL-based approach with Kaspresso, full Jetpack Compose support, and Allure reporting integration.
 
 ---
 
-> *If a task can be automated, it should be automated. If automation is not possible, the task should be brought to a state where it can be automated — and then automated.*
+## Technologies
+
+- **AI & Agents**: Claude (Anthropic), Model Context Protocol, n8n
+- **Home Automation**: Home Assistant, Zigbee2MQTT, LocalTuya, Keenetic
+- **Languages**: Python, JavaScript, Kotlin
+- **Infrastructure**: Linux, Docker, VPS, self-hosted
+- **Android QA**: Kaspresso, Espresso, UI Automator, Allure
+
+---
+
+### Contact
+
+- [LinkedIn — Mikhail Staroverov](https://www.linkedin.com/in/mikhail-staroverov/)
+
+---
+
+> *If a process can be automated — it should be. If it can't — prepare it, then automate it.*
+
 
 
