@@ -29,9 +29,9 @@ Home Assistant addon that exposes a local directory to Claude via MCP (Model Con
 ### [keenetic-mcp](https://github.com/st412m/keenetic-mcp)
 MCP server for Keenetic routers. Runs directly on the router via Entware, allowing Claude to monitor and manage home network infrastructure.
 
-- 22 tools: system monitoring, WiFi analysis, client management, VPN status, Mesh topology
+- 23 tools: system monitoring, WiFi analysis, client management, VPN status, Mesh topology, backup scheduler
 - Pure Python, no external dependencies
-- Tested on Keenetic Giga KN-1010, KeeneticOS 5.0.8
+- Tested on Keenetic Giga KN-1010, KeeneticOS 5.0.11
 
 ### [nowinandroid](https://github.com/st412m/nowinandroid)
 Custom UI test automation framework built on top of Google's Now in Android app. DSL-based approach with Kaspresso, full Jetpack Compose support, and Allure reporting integration.
