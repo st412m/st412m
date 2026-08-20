@@ -23,10 +23,10 @@ The router server now also works in the other direction: it watches the router f
 
 ## Open Source Projects
 
-### [keenetic-mcp](https://github.com/st412m/keenetic-mcp) · v2.7.2
+### [keenetic-mcp](https://github.com/st412m/keenetic-mcp) · v2.7.3
 MCP server for Keenetic routers. Runs directly on the router via Entware, letting Claude monitor and manage home network infrastructure.
 
-- 44 tools: system and traffic monitoring, WiFi analysis, client management, VPN and mesh topology, extender logs, firewall and port-forwarding rules, backup scheduler
+- 45 tools: system and traffic monitoring, WiFi analysis, client management, VPN and mesh topology, extender logs, firewall and port-forwarding rules, backup scheduler
 - Write tools default to `dry_run: true`, save the config after every change, and verify by re-reading the affected branch — the answer is a before/after diff, not a "command sent" claim
 - Guard rails in code: the server can never close the channel it is reached through; anything else you want shielded is configurable
 - **Plain HTTP route** alongside MCP, for clients that don't speak the protocol (Home Assistant `rest_command`, curl, shell scripts). Read-only by default — tools that change state are refused unless named explicitly
