@@ -23,10 +23,10 @@ The router server now also works in the other direction: it watches the router f
 
 ## Open Source Projects
 
-### [keenetic-mcp](https://github.com/st412m/keenetic-mcp) · v2.7.3
+### [keenetic-mcp](https://github.com/st412m/keenetic-mcp) · v2.7.4
 MCP server for Keenetic routers. Runs directly on the router via Entware, letting Claude monitor and manage home network infrastructure.
 
-- 45 tools: system and traffic monitoring, WiFi analysis, client management, VPN and mesh topology, extender logs, firewall and port-forwarding rules, backup scheduler
+- 47 tools: system and traffic monitoring, WiFi analysis, client management, VPN and mesh topology, extender logs, firewall and port-forwarding rules, backup scheduler
 - Write tools default to `dry_run: true`, save the config after every change, and verify by re-reading the affected branch — the answer is a before/after diff, not a "command sent" claim
 - Guard rails in code: the server can never close the channel it is reached through; anything else you want shielded is configurable
 - **Plain HTTP route** alongside MCP, for clients that don't speak the protocol (Home Assistant `rest_command`, curl, shell scripts). Read-only by default — tools that change state are refused unless named explicitly
@@ -36,7 +36,7 @@ MCP server for Keenetic routers. Runs directly on the router via Entware, lettin
 - Pure Python, standard library only — no dependencies to install on a router
 - Tested on Keenetic Giga KN-1010 + KN-1011 (Mesh), KeeneticOS 5.1.1
 
-### [ha-adb-mcp](https://github.com/st412m/ha-adb-mcp) · v1.2.4
+### [ha-adb-mcp](https://github.com/st412m/ha-adb-mcp) · v1.2.5
 Home Assistant addon exposing **network ADB** over MCP, so an assistant can actually operate Android TVs, Fire TVs, phones, tablets and watches on the LAN — not just read their state.
 
 - 18 tools: shell, screenshots, UI dump with tap coordinates, input, app install/uninstall, file transfer, logcat, plus package operations and element activation below
