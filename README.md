@@ -36,7 +36,7 @@ MCP server for Keenetic routers. Runs directly on the router via Entware, lettin
 - Pure Python, standard library only — no dependencies to install on a router
 - Tested on Keenetic Giga KN-1010 + KN-1011 (Mesh), KeeneticOS 5.1.1
 
-### [ha-adb-mcp](https://github.com/st412m/ha-adb-mcp) · v1.2.5
+### [ha-adb-mcp](https://github.com/st412m/ha-adb-mcp) · v1.3.0
 Home Assistant addon exposing **network ADB** over MCP, so an assistant can actually operate Android TVs, Fire TVs, phones, tablets and watches on the LAN — not just read their state.
 
 - 18 tools: shell, screenshots, UI dump with tap coordinates, input, app install/uninstall, file transfer, logcat, plus package operations and element activation below
@@ -50,7 +50,7 @@ Home Assistant addon exposing **network ADB** over MCP, so an assistant can actu
 - Every release is accepted on live hardware across five device classes — Fire OS 7, Android TV, Google TV, Android 16 and Wear OS 6 — which is where most of these fixes came from: each new class exposed a defect the others could not
 - amd64 · aarch64 build-verified on RPi 4
 
-### [ha-filesystem-mcp](https://github.com/st412m/ha-filesystem-mcp) · v2.6.0
+### [ha-filesystem-mcp](https://github.com/st412m/ha-filesystem-mcp) · v2.7.2
 Home Assistant addon that exposes a local directory to Claude via MCP. Built to implement [Andrej Karpathy's LLM wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — a personal knowledge base in plain markdown, maintained by an LLM agent.
 
 - Exposes any local directory (e.g. a USB drive) via MCP over HTTPS
