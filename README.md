@@ -5,62 +5,43 @@
 
 ### About Me
 
-I design and build intelligent systems, AI agents, and bots that automate processes and accelerate product development.
+I build systems where AI does the work rather than talks about it: connecting models to real infrastructure — files, networks, devices — and making sure they have brakes.
 
-I work at the intersection of architecture, integrations, and LLMs — connecting services, APIs, and data into reliable, scalable workflows. For me, automation is not just scripts, it's a well-thought-out system with clear logic and measurable outcomes.
-
-**Background:** 10 years of sysadmin experience + Android test automation (Kotlin, Kaspresso) — which gave me infrastructure thinking and a systems mindset.
-
-**Currently building:** a family of open source MCP servers that give Claude direct, authenticated access to real infrastructure — files, router, Android devices — treating AI not as a chatbot, but as an agent with system access and the guard rails that requires.
-
-They are designed to work together: the router server knows the network, the Android server operates the devices on it, and the filesystem server holds the notes tying both together. Each one is useful on its own.
-
-The guard rails are the interesting part. An agent with system access will eventually be asked to do something destructive, so the servers are built to refuse rather than to trust: state-changing calls preview by default, protected sets are derived from the live system instead of hardcoded, and nothing reports success it has not read back and verified.
-
-The router server now also works in the other direction: it watches the router from the inside and calls out when something happens, so an event no longer has to wait for someone to ask about it.
+Before that: 10 years of system administration and Android test automation (Kotlin, Kaspresso).
 
 ---
 
 ## Open Source Projects
 
-### [keenetic-mcp](https://github.com/st412m/keenetic-mcp) · v2.8.0
-MCP server for Keenetic routers. Runs directly on the router via Entware, letting Claude monitor and manage home network infrastructure.
+Three MCP servers. Each is useful on its own; together they give an assistant a way into a home setup — the router server knows the network, the ADB server operates the devices on it, and the filesystem server holds the notes that tie the two together.
 
-- 49 tools: system and traffic monitoring, WiFi analysis, client management, VPN and mesh topology, extender logs, firewall and port-forwarding rules, backup scheduler
-- Write tools default to `dry_run: true`, save the config after every change, and verify by re-reading the affected branch — the answer is a before/after diff, not a "command sent" claim
-- Guard rails in code: the server can never close the channel it is reached through; anything else you want shielded is configurable
-- **Plain HTTP route** alongside MCP, for clients that don't speak the protocol (Home Assistant `rest_command`, curl, shell scripts). Read-only by default — tools that change state are refused unless named explicitly
-- **Event watcher**: a background thread polls the router locally — log lines by regex, or a diff over any RCI branch — and makes an outbound HTTP call when a rule matches. Rules are one JSON file, re-read on change without a restart. Nothing in the code knows about Home Assistant: a rule carries its own method, URL, headers and body, so a webhook, ntfy and the Telegram Bot API are all equally first-class
-- The watcher keeps its own RCI session rather than sharing the server's. It didn't at first, and a ten-second poll of a six-second `show log` meant every other call could wait that long — measured, then fixed
-- State lives in RAM, never on the router's USB flash. A reboot re-baselines instead of replaying a boot's worth of log lines as alerts
-- Pure Python, standard library only — no dependencies to install on a router
-- Tested on Keenetic Giga KN-1010 + KN-1011 (Mesh), KeeneticOS 5.1.1
+One principle runs through all three: an agent with system access will eventually be asked to do something destructive, so these servers are built to refuse rather than to trust. Calls that change state show a plan instead of acting, protected lists are derived from the live system rather than hardcoded, and nothing reports success before reading back what it did.
 
-### [ha-adb-mcp](https://github.com/st412m/ha-adb-mcp) · v1.3.0
-Home Assistant addon exposing **network ADB** over MCP, so an assistant can actually operate Android TVs, Fire TVs, phones, tablets and watches on the LAN — not just read their state.
+### [keenetic-mcp](https://github.com/st412m/keenetic-mcp)
 
-- 18 tools: shell, screenshots, UI dump with tap coordinates, input, app install/uninstall, file transfer, logcat, plus package operations and element activation below
-- **Package operations with guard rails.** Bulk package work is where an assistant can do real damage, so `adb_app` assumes it will eventually be asked to do something wrong. Everything that changes state defaults to `dry_run: true`. The protected set is **derived from the device** — current launcher, active IME, package installer, WebView provider, role holders, account authenticators, packages holding a listening socket — and any overlap aborts the whole call, with no override flag. An account canary runs between batches, because losing a device's registration is a failure you only notice later, at the store. Everything applied is written to a snapshot, so one call undoes it
-- **App bundles.** `.apks` / `.xapk` / `.apkm` install directly: splits are chosen from the device's real ABI list, density and locale, then installed with `install-multiple`. Unpacking happens addon-side, so it works on devices with no `unzip` — Fire OS 7 among them. A missing ABI split is refused, since a wrong ABI leaves an app that will not start; a density miss falls back to the nearest bucket and says so
-- **Find an element and activate it in one call.** How it activates is derived, not assumed: with a real touchscreen the element centre is tapped; on a leanback TV device — where a coordinate tap silently activates whatever has focus instead — the focus is walked there with DPAD keys first. The UI is re-dumped after every key, and if the focus stalls, cycles, or runs out of budget, the tool reports the path it walked and presses nothing
-- Nothing reports success it has not verified: a launch is confirmed against the resumed activity, an install against the resulting split set, a removal against a re-read of the device
-- Unicode input (Cyrillic/emoji/CJK) through ADBKeyBoard, with automatic IME switch and restore
-- Coexists with the HA `androidtv` integration by sharing one adb server instead of fighting over the device session
-- Logcat filtering runs on-device, so large buffers never cross the wire
-- Every release is accepted on live hardware across five device classes — Fire OS 7, Android TV, Google TV, Android 16 and Wear OS 6 — which is where most of these fixes came from: each new class exposed a defect the others could not
-- amd64 · aarch64 build-verified on RPi 4
+An MCP server for Keenetic routers. It runs on the router itself through Entware, in plain Python with no dependencies.
 
-### [ha-filesystem-mcp](https://github.com/st412m/ha-filesystem-mcp) · v2.7.2
-Home Assistant addon that exposes a local directory to Claude via MCP. Built to implement [Andrej Karpathy's LLM wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f) — a personal knowledge base in plain markdown, maintained by an LLM agent.
+The assistant sees the network — clients, traffic, Wi-Fi and interference, VPN, mesh, firewall rules and port forwards — and can change it, with a preview first and a re-read afterwards. There is a plain HTTP route for clients that don't speak MCP, and a background watcher that calls out on its own when something happens on the router: a webhook, ntfy, the Telegram Bot API, whatever the rule names.
 
-- Exposes any local directory (e.g. a USB drive) via MCP over HTTPS
-- Token-based auth compatible with claude.ai custom connectors
-- Auto-creates the vault structure and `CLAUDE.md` on first run
-- Reads PDFs as text, so scanned manuals and datasheets land in the same wiki as everything else
-- amd64 · aarch64, community-confirmed on a Raspberry Pi 4
+Tested on a Keenetic Giga KN-1010 + KN-1011 (Mesh), KeeneticOS 5.1.
+
+### [ha-adb-mcp](https://github.com/st412m/ha-adb-mcp)
+
+A Home Assistant add-on that exposes network ADB over MCP, so an assistant can operate the Android TVs, streaming boxes, phones and watches on the LAN instead of only reading their state.
+
+Shell, screenshots with coordinates that actually land, text input including Unicode, app installs from bundles, file transfer, logcat. Package operations get their own guard rails: the protected set is derived from the device itself — launcher, active IME, package installer, role holders, packages holding a listening socket — any overlap aborts the whole call, and everything applied is written to a snapshot that one call undoes.
+
+Every release is accepted on live hardware across five device classes: Fire OS, Android TV, Google TV, Android 16 and Wear OS.
+
+### [ha-filesystem-mcp](https://github.com/st412m/ha-filesystem-mcp)
+
+A Home Assistant add-on that opens a local directory to an assistant — a USB drive on the server, for instance.
+
+Built for [Andrej Karpathy's LLM wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): a personal knowledge base in plain markdown, maintained by the agent itself. It reads PDFs as text, so scanned manuals land in the same wiki as everything else, and reads SQLite databases read-only.
 
 ### [nowinandroid](https://github.com/st412m/nowinandroid)
-Custom UI test automation framework built on top of Google's Now in Android app. DSL-based approach with Kaspresso, full Jetpack Compose support, and Allure reporting integration.
+
+A UI test automation framework built on Google's Now in Android app: a DSL on top of Kaspresso, full Jetpack Compose support, Allure reporting.
 
 ---
 
@@ -81,3 +62,4 @@ Custom UI test automation framework built on top of Google's Now in Android app.
 ---
 
 > *If a process can be automated — it should be. If it can't — prepare it, then automate it.*
+
