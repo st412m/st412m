@@ -13,9 +13,15 @@ Before that: 10 years of system administration and Android test automation (Kotl
 
 ## Open Source Projects
 
-Three MCP servers. Each is useful on its own; together they give an assistant a way into a home setup — the router server knows the network, the ADB server operates the devices on it, and the filesystem server holds the notes that tie the two together.
+Four MCP servers. Each is useful on its own; together they give an assistant a way into a home setup — the router server knows the network, the ADB server operates the devices on it, the filesystem server holds the notes that tie the two together, and cheap-eyes lets the assistant read all of it without spending its own context.
 
-One principle runs through all three: an agent with system access will eventually be asked to do something destructive, so these servers are built to refuse rather than to trust. Calls that change state show a plan instead of acting, protected lists are derived from the live system rather than hardcoded, and nothing reports success before reading back what it did.
+One principle runs through all four: an agent with system access will eventually be asked to do something destructive, so these servers are built to refuse rather than to trust. Calls that change state show a plan instead of acting, protected lists are derived from the live system rather than hardcoded, nothing reports success before reading back what it did, and nothing a helper model says is taken on faith.
+
+### [cheap-eyes](https://github.com/st412m/cheap-eyes)
+
+An MCP server that hands bulk reading — a big log, a long doc, a whole code tree — to a cheap model, so the assistant doesn't burn its own context on lines it mostly doesn't need. Runs from npx, in Docker or as a Home Assistant add-on.
+
+The cheap model gets no tools, only numbered lines with secrets already masked, and only Zero Data Retention providers are used. Its answer is not trusted: every quote and line reference is checked against the source, so an invented line is flagged before the assistant relies on it. Files that are too large are refused, never silently truncated.
 
 ### [keenetic-mcp](https://github.com/st412m/keenetic-mcp)
 
