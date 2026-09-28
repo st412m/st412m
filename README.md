@@ -53,7 +53,7 @@ A UI test automation framework built on Google's Now in Android app: a DSL on to
 
 ## Technologies
 
-- **AI & Agents**: Claude (Anthropic), Model Context Protocol, n8n
+- **AI & Agents**: Claude (Anthropic), OpenRouter, Model Context Protocol, n8n
 - **Home Automation**: Home Assistant, Zigbee2MQTT, LocalTuya, Keenetic
 - **Languages**: Python, JavaScript, Kotlin
 - **Infrastructure**: Linux, Docker, VPS, self-hosted
