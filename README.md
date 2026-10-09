@@ -13,15 +13,27 @@ Before that: 10 years of system administration and Android test automation (Kotl
 
 ## Open Source Projects
 
-Four MCP servers. Each is useful on its own; together they give an assistant a way into a home setup — the router server knows the network, the ADB server operates the devices on it, the filesystem server holds the notes that tie the two together, and cheap-eyes lets the assistant read all of it without spending its own context.
+MCP servers that give an assistant a way into real infrastructure: the network, the devices on it, files and documents. Each is useful on its own. Together they make one system: the assistant sees what is going on, can change it, keeps notes on what it did, and hands bulk reading to cheap models instead of spending its own working memory on it. Documents are turned into text for them by a shared library, doclines, so any line can be quoted and checked.
 
-One principle runs through all four: an agent with system access will eventually be asked to do something destructive, so these servers are built to refuse rather than to trust. Calls that change state show a plan instead of acting, protected lists are derived from the live system rather than hardcoded, nothing reports success before reading back what it did, and nothing a helper model says is taken on faith.
+They are all built on one principle. An agent with system access will sooner or later be asked to do something destructive, so these servers are made to refuse rather than to trust. A call that changes something shows a plan first. What must not be touched is read from the live system, not hardcoded. Success is reported only after the result has been read back. And nothing a helper model says is taken on faith.
 
 ### [cheap-eyes](https://github.com/st412m/cheap-eyes)
 
-An MCP server that hands bulk reading — a big log, a long doc, a whole code tree — to a cheap model, so the assistant doesn't burn its own context on lines it mostly doesn't need. Runs from npx, in Docker or as a Home Assistant add-on.
+Reading big text is expensive for an assistant like Claude: a megabyte of log or a hundred-page contract eats its working memory when it needs a dozen lines from it. cheap-eyes hands that reading to a cheap model and gives the assistant back only what it asked for, with the exact place in the source.
 
-The cheap model gets no tools, only numbered lines with secrets already masked, and only Zero Data Retention providers are used. Its answer is not trusted: every quote and line reference is checked against the source, so an invented line is flagged before the assistant relies on it. Files that are too large are refused, never silently truncated.
+The cheap model is not taken at its word. The server checks every quote and every line reference against the original and flags anything that isn't there. That catches what was made up, not what was missed, and the docs say so plainly.
+
+It reads plain text and logs, PDF, Word, PowerPoint, OpenDocument, EPUB, FB2, EML and MSG mail with attachments, and web pages by link. An answer shows where a line came from: page, slide, chapter or mail attachment. Give it your own form as JSON, say the deadline, price and bid security from a tender pack, and it comes back filled in, with a quote for every value. Search by an exact pattern runs without a model at all and costs nothing. Spreadsheets are left out on purpose: exact questions about a table are better answered by grep or code.
+
+The model sees only numbered lines with secrets already masked, and has no tools. Only Zero Data Retention providers are used. Runs from npx, in Docker or as a Home Assistant add-on, and is listed in the official MCP Registry.
+
+### [doclines](https://github.com/st412m/doclines)
+
+A Node.js library that turns a document into numbered lines of text and marks where each page, slide, chapter, sheet or mail attachment begins. A reference like "line 812, page 4 of the attachment" can then be checked mechanically; cheap-eyes' quote check rests on that.
+
+It reads PDF, Word (old DOC included), RTF, HTML, Excel (old XLS included), PowerPoint, OpenDocument, EPUB, FB2, and EML and MSG mail with attachments. The format is told by content, not by file extension. Encrypted files, scans with no text layer, images and archives are refused with a reason.
+
+Each document is parsed in a separate thread with a time and memory limit, so a broken or hostile file can't take down the program reading it. Used by cheap-eyes now, with ha-filesystem-mcp next. Comes with a `doclines <file>` command.
 
 ### [keenetic-mcp](https://github.com/st412m/keenetic-mcp)
 
