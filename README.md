@@ -33,7 +33,7 @@ A Node.js library that turns a document into numbered lines of text and marks wh
 
 It reads PDF, Word (old DOC included), RTF, HTML, Excel (old XLS included), PowerPoint, OpenDocument, EPUB, FB2, and EML and MSG mail with attachments. The format is told by content, not by file extension. Encrypted files, scans with no text layer, images and archives are refused with a reason.
 
-Each document is parsed in a separate thread with a time and memory limit, so a broken or hostile file can't take down the program reading it. Used by cheap-eyes now, with ha-filesystem-mcp next. Comes with a `doclines <file>` command.
+Each document is parsed in a separate thread with a time and memory limit, so a broken or hostile file can't take down the program reading it. Comes with a `doclines <file>` command.
 
 ### [keenetic-mcp](https://github.com/st412m/keenetic-mcp)
 
