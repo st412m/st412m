@@ -17,6 +17,16 @@ MCP servers that give an assistant a way into real infrastructure: the network, 
 
 They are all built on one principle. An agent with system access will sooner or later be asked to do something destructive, so these servers are made to refuse rather than to trust. A call that changes something shows a plan first. What must not be touched is read from the live system, not hardcoded. Success is reported only after the result has been read back. And nothing a helper model says is taken on faith.
 
+### [everkeep](https://github.com/st412m/everkeep)
+
+Stop re-explaining yourself to your AI. Everkeep keeps notes, decisions and projects in one folder on your own server: the assistant reads it when a chat starts and writes down what was worked out, so the next conversation picks up where the last one ended. Built for [Andrej Karpathy's LLM wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): a personal knowledge base in plain markdown, maintained by the agent itself.
+
+Documents live in the same folder. PDF, Word, Excel, PowerPoint, OpenDocument, EPUB and mail with attachments are read as numbered lines with page and sheet markers, through doclines, and found by search like any note, so an answer about a contract comes with the page. A scan without a text layer is read as page images. SQLite databases are read read-only.
+
+The brakes are write policies set per folder: read-only, edits only with the file's current revision so nothing the assistant hasn't seen gets overwritten, new files only, or free. There is no delete: a discarded file goes to the folder's trash and can be moved back. The assistant can't change the rules, and every path stays inside the one folder, symlinks included.
+
+Runs from npm, as a Docker image for amd64 and arm64, or as the Home Assistant add-on below. Speaks MCP over HTTP and stdio.
+
 ### [cheap-eyes](https://github.com/st412m/cheap-eyes)
 
 Reading big text is expensive for an assistant like Claude: a megabyte of log or a hundred-page contract eats its working memory when it needs a dozen lines from it. cheap-eyes hands that reading to a cheap model and gives the assistant back only what it asked for, with the exact place in the source.
@@ -53,9 +63,7 @@ Every release is accepted on live hardware across five device classes: Fire OS, 
 
 ### [ha-filesystem-mcp](https://github.com/st412m/ha-filesystem-mcp)
 
-A Home Assistant add-on that opens a local directory to an assistant — a USB drive on the server, for instance.
-
-Built for [Andrej Karpathy's LLM wiki pattern](https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f): a personal knowledge base in plain markdown, maintained by the agent itself. It reads PDFs as text, so scanned manuals land in the same wiki as everything else, and reads SQLite databases read-only.
+Everkeep as a Home Assistant add-on: point it at a folder on the server, a USB drive for instance, and connect Claude. The add-on generates the access token itself, folder rules are set on a page inside Home Assistant, and files get into the folder through the Samba share app.
 
 ### [nowinandroid](https://github.com/st412m/nowinandroid)
 
